@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Validator;
+use ValidateAuth;
 use App\User;
 
 class CreateUsers extends Command
@@ -40,7 +41,7 @@ class CreateUsers extends Command
     public function handle()
     {
         $arguments = $this->getArgumentsAsArray();
-        $validator = $this->getValidate($arguments);
+        $validator = ValidateAuth::validateUserData($arguments);
         if($validator->fails()){
             $this->showErrors($validator->errors()->all());
         } else {
@@ -64,15 +65,6 @@ class CreateUsers extends Command
         foreach ($errors as $error) {
             $this->error('#' .  $id . ': ' . $error);
         }
-    }
-
-    private function getValidate(array $arguments) {
-        return Validator::make($arguments, [
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
     }
 
     private function create($arguments) {

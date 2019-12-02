@@ -11,8 +11,15 @@
 |
 */
 
-Route::get('/', "WelcomeController@index");
+Route::get('/', "WelcomeController@index")->name('welcome');
+Route::post('/', "WelcomeController@save")->name('create');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/overview/{id}', 'HomeController@overview')->name('overview');
+Route::get('/delete/{id}', 'HomeController@delete')->name('delete');
+Route::get('/edit/{id}', 'HomeController@edit')->name('edit');
+Route::post('/update/{id}', 'HomeController@update')->name('update');
+
+Route::get('/editing/{id}', 'EditingController@index')->name('editing');

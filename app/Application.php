@@ -13,7 +13,7 @@ class Application extends Model
      */
     protected $fillable = ['username', 'email', 'phone', 'text'];
 
-    public function appeals_changes () {
+    public function editings () {
     	return $this->hasMany('App\Editing');
   	}
 }
